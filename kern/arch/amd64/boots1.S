@@ -59,8 +59,8 @@ start_32:
 
 # An exception occurred. This should not happen.
 # TODO: Implement propper exception handling down here.
-loop:
-  jmp     loop
+_loop:
+  jmp .
 
 # Global descriptor table
 .p2align 2
