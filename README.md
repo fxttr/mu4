@@ -1,2 +1,2 @@
-# mu4
+# $(IMAGE_NAME)
 Minimal unix-like microkernel OS
