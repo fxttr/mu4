@@ -1,2 +1,2 @@
-# $(IMAGE_NAME)
-Minimal unix-like microkernel OS
+# mu4
+Minimal unix-like microkernel 64 Bit OS
