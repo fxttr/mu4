@@ -15,7 +15,7 @@ LDFLAGS = -m elf_x86_64 -z nodefaultlib
 TOOLCHAIN = # Set this option if you want to use a custom toolchain (for cross compilation for example)
 $(eval $(call IFNDEF,TOOLCHAIN,/usr/bin/))
 CC = $(TOOLCHAIN)gcc
-AS = $(TOOLCHAIN)gas
+AS = $(TOOLCHAIN)as
 LD = $(TOOLCHAIN)ld
 OBJCOPY = $(TOOLCHAIN)objcopy
 OBJDUMP = $(TOOLCHAIN)objdump
