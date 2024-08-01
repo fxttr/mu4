@@ -1,0 +1,2 @@
+-- Copyright (C) 2024 Florian Marrero Liestmann
+-- SPDX-License-Identifier:  GPL-3.0-only

@@ -1,0 +1,89 @@
+
+-- Copyright (C) 2024 Florian Marrero Liestmann
+-- SPDX-License-Identifier:  GPL-3.0-only
+
+LIBRARY PROJECT mu4_kern_runtime
+IS
+   FOR default_language    USE "Ada";
+   FOR languages           USE("Ada");
+   FOR source_dirs         USE("./runtime/");
+   FOR object_dir          USE "./../build/kern/";
+   FOR exec_dir            USE mu4_kern_runtime'object_dir;
+   FOR library_name        USE "mu4_kern_runtime";
+   FOR library_kind        USE "static";
+   FOR library_src_dir     USE
+      mu4_kern_runtime'object_dir & "adainclude/";
+   FOR library_dir         USE
+      mu4_kern_runtime'object_dir & "adalib/";
+   FOR create_missing_dirs USE "true";
+
+   TYPE runtime_type IS("Final", "Debug");
+   Build : runtime_type := EXTERNAL("Build", "Final");
+
+   PACKAGE Builder
+   IS       Builder_Basic_Switches := (                  
+                  "-x",
+                  "-nostdlib",
+                  "-nostdinc"
+            );
+
+      FOR switches(OTHERS) USE
+         Builder_Basic_Switches;
+
+                  FOR Global_Configuration_Pragmas USE
+         "./config/mu4_kern_runtime.adc";
+   END Builder;
+
+   PACKAGE Compiler
+   IS       GCC_Basic_Switches := (         
+                  "-fstack-protector-all",
+                  "-fstack-check",
+                  "-msse2", 
+                  "-mfpmath=sse", 
+                  "-mprefer-vector-width=128",
+                  "-mpreferred-stack-boundary=4",
+                  "-fstack-usage",
+                  "-mno-red-zone",
+                  "-mcmodel=kernel", 
+                  "-fno-PIC",
+                  "-masm=intel",
+                  "-march=x86-64",
+                  "-mtune=generic"
+            );
+
+      Ada_Basic_Switches := (
+                  "-gnatg",
+                  "-gnat2012",
+                  "-gnatyN",
+                  "-gnatwa",
+                  "-gnatw.X"
+      );
+
+      Ada_Final_Switches := (         
+                  "-g0",
+                  "-gnatVd",
+                  "-gnatx"
+      );
+
+      Ada_Debug_Switches := (
+                  "-ggdb3",
+                  "-gnatVa",
+                  "-gnatR2s"
+      );
+
+      CASE
+         Build
+      IS
+         WHEN "Final" =>
+            FOR default_switches("Ada") USE
+               GCC_Basic_Switches &
+               Ada_Basic_Switches &
+               Ada_Final_Switches;
+         WHEN "Debug" =>
+            FOR default_switches("Ada") USE
+               GCC_Basic_Switches &
+               Ada_Basic_Switches &
+               Ada_Debug_Switches;
+      END CASE;
+   END Compiler;
+END mu4_kern_runtime;

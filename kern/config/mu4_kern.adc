@@ -1,0 +1,70 @@
+-- Copyright (C) 2024 Florian Marrero Liestmann
+-- SPDX-License-Identifier:  GPL-3.0-only
+
+pragma License (GPL);
+pragma SPARK_Mode (on);
+pragma Normalize_Scalars;
+pragma Assertion_Policy (Check);
+pragma Overflow_Mode (Minimized, Minimized);
+
+pragma Warnings
+   (GNATprove, off,
+    "attribute ""Position"" has an implementation-defined value",
+    Reason => "This attribute just returns the byte offset for x86-64.");
+
+pragma Warnings
+   (GNATprove, off, "attribute ""Image"" has an implementation-defined length",
+    Reason => "Imaged enumeration name lengths should be checked manually.");
+
+pragma Warnings
+   (GNATprove,
+    off, -- Be careful of using it to prove a range.
+    "attribute ""Size"" has an implementation-defined value",
+    Reason => "It returns the size in bits for the type or variable.");
+
+pragma Warnings
+   (GNATprove, off, -- Reason doesn't apply for e.g. MMIO objects.
+    "indirect writes to * through a potential alias are ignored",
+    Reason => "Nothing should be writing to imports from elsewhere.");
+
+pragma Restrictions (No_Access_Parameter_Allocators);
+pragma Restrictions (No_Anonymous_Allocators);
+pragma Restrictions (No_Calendar);
+pragma Restrictions (No_Delay);
+pragma Restrictions (No_Direct_Boolean_Operators);
+pragma Restrictions (No_Dispatch);
+pragma Restrictions (No_Dynamic_Attachment);
+pragma Restrictions (No_Entry_Calls_In_Elaboration_Code);
+pragma Restrictions (No_Exception_Handlers);
+pragma Restrictions (No_Exception_Propagation);
+pragma Restrictions (No_Exception_Registration);
+pragma Restrictions (No_Finalization);
+pragma Restrictions (No_Implementation_Identifiers);
+pragma Restrictions (No_Implementation_Units);
+pragma Restrictions (No_Implicit_Aliasing);
+pragma Restrictions (No_Implicit_Dynamic_Code);
+pragma Restrictions (No_Implicit_Heap_Allocations);
+pragma Restrictions (No_Implicit_Protected_Object_Allocations);
+pragma Restrictions (No_Implicit_Task_Allocations);
+pragma Restrictions (No_IO);
+pragma Restrictions (No_Multiple_Elaboration);
+pragma Restrictions (No_Nested_Finalization);
+pragma Restrictions (No_Obsolescent_Features);
+pragma Restrictions (No_Protected_Type_Allocators);
+pragma Restrictions (No_Protected_Types);
+pragma Restrictions (No_Recursion);
+pragma Restrictions (No_Reentrancy);
+pragma Restrictions (No_Relative_Delay);
+pragma Restrictions (No_Secondary_Stack);
+pragma Restrictions (No_Select_Statements);
+pragma Restrictions (No_Specific_Termination_Handlers);
+pragma Restrictions (No_Streams);
+pragma Restrictions (No_Task_Allocators);
+pragma Restrictions (No_Task_At_Interrupt_Priority);
+pragma Restrictions (No_Task_Attributes_Package);
+pragma Restrictions (No_Task_Termination);
+pragma Restrictions (No_Tasking);
+pragma Restrictions (No_Terminate_Alternatives);
+pragma Restrictions (Simple_Barriers);
+pragma Restrictions (Static_Priorities);
+pragma Restrictions (Static_Storage_Size);
